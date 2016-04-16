@@ -74,7 +74,10 @@ class AXML:
 
         self.buff = ''
         self.content = {}
+<<<<<<< HEAD
         self.uses_permissions = set()
+=======
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
         self.permissions = set()
 
         self.activities = []
@@ -125,6 +128,7 @@ class AXML:
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
                         self.content[name] = value
+<<<<<<< HEAD
                 elif "uses-permission" == tag:
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
@@ -133,6 +137,9 @@ class AXML:
                             self.uses_permissions.add(value)
                             break
                 elif "permission" == tag:
+=======
+                elif "permission" in tag:
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
@@ -151,6 +158,10 @@ class AXML:
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
+<<<<<<< HEAD
+=======
+                        # print(name)
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
                         if name == "name":
                             tagName = value
                             self.activities.append(value)
@@ -197,7 +208,15 @@ class AXML:
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
+<<<<<<< HEAD
                         self.content[name] = value
+=======
+                        if "permission" in value:
+                            self.permissions.add(value)
+                        else:
+                            self.content[name] = value
+                        # print("other >>>> ", key, name, value)
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
 
             elif _type == END_TAG:
                 prefix = self.getPrefix(
@@ -321,9 +340,12 @@ class AXML:
     def getPermissions(self):
         return self.permissions
 
+<<<<<<< HEAD
     def getUsesPermissions(self):
         return self.uses_permissions
 
+=======
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
     def getActions(self):
         return self.actions
 
@@ -360,11 +382,17 @@ class AXML:
         for key in sorted(self.services.keys()):
             print(" ", key, self.services[key])
 
+<<<<<<< HEAD
         print("Permissions : ")
         for perm in sorted(self.permissions):
             print(" ", perm)
         for perm in sorted(self.uses_permissions):
             print(" ", perm)
+=======
+        print("permissions : ")
+        for perm in sorted(self.permissions):
+            print(" ", perm)
+>>>>>>> 80d5b7b6213b975461bd5709969988b787861cf2
 
     def printXML(self):
         print(self.get_xml())
