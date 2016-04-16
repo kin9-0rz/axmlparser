@@ -64,6 +64,7 @@ def main(options, arguments):
     else:
         print("Use axmlprinter.py -h for command line options.")
 
+
 if __name__ == "__main__":
     parser = OptionParser(prog='axmlprinter')
     for option in options:

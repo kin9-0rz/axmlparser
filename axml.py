@@ -11,11 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.from xml.dom import minidom
+
+
 from xml.sax.saxutils import escape
 from struct import pack, unpack
 from xml.dom import minidom
 
 from .apk import AXMLParser
+
 
 ATTRIBUTE_IX_NAMESPACE_URI = 0
 ATTRIBUTE_IX_NAME = 1
@@ -372,7 +375,3 @@ class AXML:
 
     def printXML(self):
         print(self.get_xml())
-
-if __name__ == '__main__':
-    axml = AXML(open("axml/test/AndroidManifest.xml", "rb").read())
-    axml.printAll()
