@@ -105,11 +105,13 @@ class StringBlock:
         if idx in self._cache:
             return self._cache[idx]
 
-        if idx < 0 or not self.m_stringOffsets or \
-                idx >= len(self.m_stringOffsets):
+        if idx < 0 or not self.m_stringOffsets or idx >= len(self.m_stringOffsets):
             return ""
 
         offset = self.m_stringOffsets[idx]
+
+        if len(self.m_strings) < offset:
+            return "name"
 
         if not self.m_isUTF8:
             length = self.getShort2(self.m_strings, offset)

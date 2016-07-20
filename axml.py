@@ -1,4 +1,4 @@
-# Copyright 2015 LAI. All Rights Reserved.
+# Copyright 2015 acgmohu@gmail.com. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -76,17 +76,23 @@ class AXML:
         self.xmlns = False
 
         self.buff = ''
+
         self.content = {}
         self.uses_permissions = set()
         self.permissions = set()
 
         self.activities = []
         self.mainActivity = None
-        mainFlag = -2
 
         self.receivers = {}  # { rev : actions }
         self.services = {}  # { ser : actions }
         self.actions = set()
+
+        self.parse()
+        self.xml = self.format_xml()
+
+    def parse(self):
+        mainFlag = -2
         action_list = []
 
         whichTag = -1
@@ -128,19 +134,19 @@ class AXML:
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
                         self.content[name] = value
-                elif "uses-permission" == tag:
-                    for i in range(0, int(self.parser.getAttributeCount())):
-                        name = self.parser.getAttributeName(i)
-                        value = self._escape(self.getAttributeValue(i))
-                        if name == "name":
-                            self.uses_permissions.add(value)
-                            break
                 elif "permission" == tag:
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
                         value = self._escape(self.getAttributeValue(i))
                         if name == "name":
                             self.permissions.add(value)
+                            break
+                elif "permission" in tag:
+                    for i in range(0, int(self.parser.getAttributeCount())):
+                        name = self.parser.getAttributeName(i)
+                        value = self._escape(self.getAttributeValue(i))
+                        if name == "name":
+                            self.uses_permissions.add(value)
                             break
                 elif tag == "application":
                     for i in range(0, int(self.parser.getAttributeCount())):
@@ -149,7 +155,7 @@ class AXML:
                         if name == "name":
                             self.content["application"] = value
                             break
-                elif tag == "activity":
+                elif "activity" in tag:
                     whichTag = ACT
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
@@ -157,7 +163,7 @@ class AXML:
                         if name == "name":
                             tagName = value
                             self.activities.append(value)
-                elif tag == "receiver":
+                elif "receiver" in tag:
                     whichTag = REV
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
@@ -165,7 +171,7 @@ class AXML:
                         if name == "name":
                             tagName = value
                             break
-                elif tag == "service":
+                elif "service" in tag:
                     whichTag = SER
                     for i in range(0, int(self.parser.getAttributeCount())):
                         name = self.parser.getAttributeName(i)
@@ -173,7 +179,7 @@ class AXML:
                         if name == "name":
                             tagName = value
                             break
-                elif tag == "action":
+                elif "action" in tag:
                     if whichTag == ACT:
                         for i in range(0, int(self.parser.getAttributeCount())):
                             name = self.parser.getAttributeName(i)
@@ -190,7 +196,7 @@ class AXML:
                                 action_list.append(value)
                                 self.actions.add(value)
                                 break
-                elif tag == 'category':
+                elif 'category' in tag:
                     if whichTag == ACT:
                         for i in range(0, int(self.parser.getAttributeCount())):
                             value = self._escape(self.getAttributeValue(i))
@@ -248,6 +254,11 @@ class AXML:
     def get_xml(self):
         return minidom.parseString(self.get_buff()).toprettyxml()
 
+    def format_xml(self):
+        tmp = minidom.parseString(self.get_buff()).toprettyxml()
+        A = str(tmp).replace('\t', '').replace('\n', '')
+        return minidom.parseString(A).toprettyxml()
+
     def get_xml_obj(self):
         return minidom.parseString(self.get_buff())
 
@@ -258,7 +269,6 @@ class AXML:
         return prefix + ':'
 
     def getAttributeValue(self, index):
-        # print('getAttributeValue : ', index)
         _type = self.parser.getAttributeValueType(index)
         _data = self.parser.getAttributeValueData(index)
 
@@ -373,5 +383,5 @@ class AXML:
         for perm in sorted(self.uses_permissions):
             print(" ", perm)
 
-    def printXML(self):
-        print(self.get_xml())
+    def print(self):
+        print(self.xml)
