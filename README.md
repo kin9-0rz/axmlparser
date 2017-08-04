@@ -1,7 +1,6 @@
-# axmlparser [![Build Status](https://travis-ci.org/mikusjelly/axmlparser.svg?branch=master)](https://travis-ci.org/acgmohu/axmlparser)
+# axmlparser [![Build Status](https://travis-ci.org/mikusjelly/axmlparser.svg?branch=master)](https://travis-ci.org/acgmohu/axmlparser) [ Deprecated]
+
 A parser for AndroidManifest.xml
-
-
 
 
 ### Install
@@ -17,7 +16,7 @@ A parser for AndroidManifest.xml
 from axmlparser import AXML
 
 axml = AXML(data)
-axml..getPackageName()
+axml.getPackageName()
 axml.printAll()
 ```
 
