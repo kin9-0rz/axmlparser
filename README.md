@@ -1,4 +1,8 @@
-# axmlparser [![Build Status](https://travis-ci.org/mikusjelly/axmlparser.svg?branch=master)](https://travis-ci.org/acgmohu/axmlparser) [ Deprecated]
+# axmlparser[Deprecated]
+
+[![Build Status](https://travis-ci.org/mikusjelly/axmlparser.svg?branch=master)](https://travis-ci.org/acgmohu/axmlparser) 
+
+
 
 A parser for AndroidManifest.xml
 
