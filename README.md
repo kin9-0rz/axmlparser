@@ -1,10 +1,9 @@
-# axmlparser[Deprecated]
+# axmlparser ![project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg) 
 
-[![Build Status](https://travis-ci.org/mikusjelly/axmlparser.svg?branch=master)](https://travis-ci.org/acgmohu/axmlparser) 
+![project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)
 
 
-
-A parser for AndroidManifest.xml
+~~A parser for AndroidManifest.xml~~ Please use apkutils.
 
 
 ### Install
@@ -23,4 +22,6 @@ axml = AXML(data)
 axml.getPackageName()
 axml.printAll()
 ```
+
+
 
